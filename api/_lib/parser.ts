@@ -10,6 +10,8 @@ export function parseRequest(req: IncomingMessage) {
 
   console.log(authorName, authorPhoto, authorTitle);
 
+  // remove plus sign from url authortitle string
+  const authorTitleString = authorTitle?.toString().replace(/\+/g, " ");
   if (Array.isArray(fontSize)) {
     throw new Error("Expected a single fontSize");
   }
@@ -31,7 +33,7 @@ export function parseRequest(req: IncomingMessage) {
     text: decodeURIComponent(text),
     authorName: getArray(query.authorName)[0] || "",
     authorPhoto: getArray(query.authorPhoto)[0] || "",
-    authorTitle: getArray(query.authorTitle)[0] || "",
+    authorTitle: authorTitleString || "",
     category:
       category === "web3"
         ? "web3"
