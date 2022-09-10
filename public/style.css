@@ -225,7 +225,7 @@ select {
 }
 
 .field-value {
-    width: 100%;
+    width: 200px;
     display: inline-block;
 }
 
