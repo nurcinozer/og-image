@@ -1,146 +1,150 @@
-
-import { readFileSync } from 'fs';
-import { marked } from 'marked';
-import { sanitizeHtml } from './sanitizer';
-import { ParsedRequest } from './types';
-const twemoji = require('twemoji');
-const twOptions = { folder: 'svg', ext: '.svg' };
+import { readFileSync } from "fs";
+// import { marked } from "marked";
+import { sanitizeHtml } from "./sanitizer";
+import { ParsedRequest } from "./types";
+const twemoji = require("twemoji");
+const twOptions = { folder: "svg", ext: ".svg" };
 const emojify = (text: string) => twemoji.parse(text, twOptions);
 
-const rglr = readFileSync(`${__dirname}/../_fonts/Inter-Regular.woff2`).toString('base64');
-const bold = readFileSync(`${__dirname}/../_fonts/Inter-Bold.woff2`).toString('base64');
-const mono = readFileSync(`${__dirname}/../_fonts/Vera-Mono.woff2`).toString('base64');
+const book = readFileSync(
+  `${__dirname}/../_fonts/MaisonNeue-Book.woff2`
+).toString("base64");
 
-function getCss(theme: string, fontSize: string) {
-    let background = 'white';
-    let foreground = 'black';
-    let radial = 'lightgray';
+const extendedBold = readFileSync(
+  `${__dirname}/../_fonts/MaisonNeueExtended-Bold.woff2`
+).toString("base64");
+const medium = readFileSync(
+  `${__dirname}/../_fonts/MaisonNeue-Medium.otf`
+).toString("base64");
 
-    if (theme === 'dark') {
-        background = 'black';
-        foreground = 'white';
-        radial = 'dimgray';
-    }
-    return `
+function getCss() {
+  return `
     @font-face {
-        font-family: 'Inter';
-        font-style:  normal;
-        font-weight: normal;
-        src: url(data:font/woff2;charset=utf-8;base64,${rglr}) format('woff2');
-    }
-
-    @font-face {
-        font-family: 'Inter';
-        font-style:  normal;
-        font-weight: bold;
-        src: url(data:font/woff2;charset=utf-8;base64,${bold}) format('woff2');
-    }
-
-    @font-face {
-        font-family: 'Vera';
+        font-family: 'MaisonNeueBook';
+        font-weight: 200;
         font-style: normal;
-        font-weight: normal;
-        src: url(data:font/woff2;charset=utf-8;base64,${mono})  format("woff2");
+        src: url(data:font/woff2;charset=utf-8;base64,${book}) format('woff2');
+    }
+
+    @font-face {
+        font-family: 'MaisonNeueExtendedBold';
+        font-weight: bold;
+        font-style: normal;
+        src: url(data:font/woff2;charset=utf-8;base64,${extendedBold}) format('woff2');
+    }
+
+    @font-face {
+        font-family: 'MaisonNeueMedium';
+        font-weight: 500;
+        font-style: normal;
+        src: url(data:font/woff2;charset=utf-8;base64,${medium})  format("otf");
       }
 
-    body {
-        background: ${background};
-        background-image: radial-gradient(circle at 25px 25px, ${radial} 2%, transparent 0%), radial-gradient(circle at 75px 75px, ${radial} 2%, transparent 0%);
-        background-size: 100px 100px;
-        height: 100vh;
-        display: flex;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-    }
 
-    code {
-        color: #D400FF;
-        font-family: 'Vera';
-        white-space: pre-wrap;
-        letter-spacing: -5px;
-    }
-
-    code:before, code:after {
-        content: '\`';
-    }
-
-    .logo-wrapper {
-        display: flex;
-        align-items: center;
-        align-content: center;
-        justify-content: center;
-        justify-items: center;
-    }
-
-    .logo {
-        margin: 0 75px;
-    }
-
-    .plus {
-        color: #BBB;
-        font-family: Times New Roman, Verdana;
-        font-size: 100px;
-    }
-
-    .spacer {
-        margin: 150px;
-    }
-
-    .emoji {
-        height: 1em;
-        width: 1em;
-        margin: 0 .05em 0 .1em;
-        vertical-align: -0.1em;
+      * {
+      box-sizing: border-box;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      background: none;
     }
     
-    .heading {
-        font-family: 'Inter', sans-serif;
-        font-size: ${sanitizeHtml(fontSize)};
-        font-style: normal;
-        color: ${foreground};
-        line-height: 1.8;
-    }`;
+    html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    img {
+      display: block;
+    }
+    
+    body {
+      font-family: "MaisonNeueExtendedBold";
+      line-height: 1.14;
+      font-size: 64px;
+      position: relative;
+      background: #222222 url(https://i.ibb.co/T1GJVFq/pattern.png) no-repeat;
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      color: white;
+    }
+    
+    header {
+      position: absolute;
+      inset: 88px 100px auto;
+    }
+    
+    .title {
+      font-size: 112px;
+    }
+
+
+    .author {
+      position: absolute;
+      inset: auto 100px 200px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    
+    .author-name {
+      font-size: 56px;
+      margin-bottom: 20px;
+      color: #867BFF;
+    }
+    
+    .author-photo {
+      border: 8px solid #867BFF;
+      border-radius: 100%;
+    }
+    
+    .author-photo img {
+      font-size: 220px;
+      width: 1em;
+      height: 1em;
+      border-radius: 100%;
+      object-fit: cover;
+      object-position: center;
+      border: 12px solid #161616;
+    }
+    `;
 }
 
 export function getHtml(parsedReq: ParsedRequest) {
-    const { text, theme, md, fontSize, images, widths, heights } = parsedReq;
-    return `<!DOCTYPE html>
-<html>
-    <meta charset="utf-8">
-    <title>Generated Image</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        ${getCss(theme, fontSize)}
-    </style>
-    <body>
-        <div>
-            <div class="spacer">
-            <div class="logo-wrapper">
-                ${images.map((img, i) =>
-                    getPlusSign(i) + getImage(img, widths[i], heights[i])
-                ).join('')}
-            </div>
-            <div class="spacer">
-            <div class="heading">${emojify(
-                md ? marked(text) : sanitizeHtml(text)
-            )}
-            </div>
-        </div>
-    </body>
-</html>`;
-}
-
-function getImage(src: string, width ='auto', height = '225') {
-    return `<img
-        class="logo"
-        alt="Generated Image"
-        src="${sanitizeHtml(src)}"
-        width="${sanitizeHtml(width)}"
-        height="${sanitizeHtml(height)}"
-    />`
-}
-
-function getPlusSign(i: number) {
-    return i === 0 ? '' : '<div class="plus">+</div>';
+  const { text, authorName, authorPhoto, authorTitle, category } = parsedReq;
+//   console.log(authorName, authorPhoto, authorTitle, category);
+  return `<!DOCTYPE html>
+  <html>
+      <meta charset="utf-8">
+      <title>Generated Image</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style>
+          ${getCss()}
+      </style>
+      <body>
+      
+  <header>
+    <p class="category">${emojify(category)}</p>
+    <h1 class="title">
+      ${text}
+    </h1>
+  </header>
+  
+  <div class="author">
+    <div>
+      <h4 class="author-name">${authorName}</h4>
+      <p class="author-title">${authorTitle}</p>
+    </div>
+    ${
+      authorPhoto
+        ? `<div class="author-photo">
+            <img src="${sanitizeHtml(authorPhoto)}" />
+           </div>`
+        : ""
+    }
+  </div>
+  
+  </body>
+  </html>`;
 }
