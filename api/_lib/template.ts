@@ -79,8 +79,17 @@ header {
 }
 
 .category {
-font-size: 88px;
-line-height: 52.35px;
+  font-size: 36px;
+  line-height: 32px;
+  font-family: 'MaisonNeueBook';
+  background-color: #867BFF;
+  padding: 8px 24px;
+  width: fit-content;
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
 }
 
 .author {

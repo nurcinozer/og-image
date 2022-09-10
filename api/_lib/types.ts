@@ -1,5 +1,5 @@
 export type FileType = 'png' | 'jpeg';
-export type Category = '💻' | '👚' | '♻️';
+export type Category = 'web3' | 'fashion' | 'sustainability';
 
 export interface ParsedRequest {
     fileType: FileType;

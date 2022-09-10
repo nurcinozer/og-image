@@ -33,7 +33,7 @@ export function parseRequest(req: IncomingMessage) {
     authorName: getArray(query.authorName)[0] || "",
     authorPhoto: getArray(query.authorPhoto)[0] || "",
     authorTitle: authorTitleString || "",
-    category: category === "web3" ? "💻" : category === "fashion" ? "👚" : "♻️",
+    category: category === "web3" ? "web3" : category === "fashion" ? "fashion" : "sustainability",
   };
   return parsedRequest;
 }

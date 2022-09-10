@@ -129,9 +129,9 @@ const Toast = ({ show, message }: ToastProps) => {
 };
 
 const categoryOptions: DropdownOption[] = [
-  { text: "🦾", value: "web3" },
-  { text: "👚", value: "fashion" },
-  { text: "♻️", value: "sustainability" },
+  { text: "web3", value: "web3" },
+  { text: "fashion", value: "fashion" },
+  { text: "sustainability", value: "sustainability" },
 ];
 
 interface AppState extends ParsedRequest {
