@@ -3,7 +3,6 @@ import { parse } from "url";
 import { ParsedRequest } from "./types";
 
 export function parseRequest(req: IncomingMessage) {
-  console.log("HTTP " + req.url);
   const { pathname, query } = parse(req.url || "/", true);
   const { fontSize, category, authorName, authorPhoto, authorTitle } =
     query || {};
@@ -34,12 +33,7 @@ export function parseRequest(req: IncomingMessage) {
     authorName: getArray(query.authorName)[0] || "",
     authorPhoto: getArray(query.authorPhoto)[0] || "",
     authorTitle: authorTitleString || "",
-    category:
-      category === "web3"
-        ? "web3"
-        : category === "fashion"
-        ? "fashion"
-        : "sustainability",
+    category: category === "web3" ? "💻" : category === "fashion" ? "👚" : "♻️",
   };
   return parsedRequest;
 }
